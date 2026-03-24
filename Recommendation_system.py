@@ -115,7 +115,7 @@ class RecommendationSystem:
                 "Restaurant Name",
                 "City",
                 "Locality",
-                "Cuisines_processed",
+                "Cuisines",
                 "Aggregate rating",
                 "Votes",
                 "similarity_score",
@@ -124,21 +124,23 @@ class RecommendationSystem:
 
     def recommendation_by_cuisines(
         self,
-        preferred_cuisines: list[str],
-        n_recommendations: int,
+        preferred_cuisines: list[str] | None = None,
+        n_recommendations: int = 5,
         min_rating: float | None = None,
         city: str | None = None,
         preferred_restaurant: str | None = None,
     ):
-        user_cuisines = [cuisine.strip().replace(" ", "_").lower() for cuisine in preferred_cuisines]
+        filtered_data = self.dataset.copy()
+        if preferred_cuisines:
+            user_cuisines = [cuisine.strip().replace(" ", "_").lower() for cuisine in preferred_cuisines]
 
-        def Has_preferred_cuisine(row):
-            if pd.isna(row["Cuisines_processed"]):
-                return False
-            restaurant_cuisine = [c.lower().strip() for c in row["Cuisines_processed"].split(" ")]
-            return any(p in restaurant_cuisine for p in user_cuisines)
+            def Has_preferred_cuisine(row):
+                if pd.isna(row["Cuisines_processed"]):
+                    return False
+                restaurant_cuisine = [c.lower().strip() for c in row["Cuisines_processed"].split(" ")]
+                return any(p in restaurant_cuisine for p in user_cuisines)
 
-        filtered_data = self.dataset[self.dataset.apply(Has_preferred_cuisine, axis=1)].copy()
+            filtered_data = filtered_data[filtered_data.apply(Has_preferred_cuisine, axis=1)].copy()
 
         if city:
             filtered_data = filtered_data[
