@@ -58,12 +58,12 @@ st.markdown("""
 
 st.title('Restaurant Recommendation System 🍽️',text_alignment='center')
 
-st.header('Find Your Perfect Dining Spot in Delhi-NCR with Zomato!',text_alignment='center')
+st.header('Find Your Perfect Dining Spot in India with Zomato!',text_alignment='center')
 
 st.markdown(
     """
     <h4 style="text-align:center; color: #fffff1;opacity: 2.0;">
-    Discover the best restaurants in Delhi-NCR based on your preferences.
+    Discover the best restaurants in India based on your preferences.
     <br>Whether you are craving
     North Indian, South Indian, Chinese, <br>or any other cuisine, our recommendation system has got you covered!'
     </h4>
@@ -71,7 +71,7 @@ st.markdown(
 )
 st.divider(width="stretch")
 st.markdown("### Enter Your Preferences Below :",)
-st.write("""<h5>This app recommends restaurants in the Delhi-NCR region based on your preferences.</h5>""",unsafe_allow_html=True)
+st.write("""<h5>This app recommends restaurants in the India region based on your preferences.</h5>""",unsafe_allow_html=True)
 
 all_restaurants = sorted(rs.dataset['Restaurant Name'].dropna().unique())
 
@@ -87,9 +87,6 @@ restaurant_name = st.selectbox(
 all_cuisines=sorted(set(
     cuisines for row in rs.dataset['Cuisines'] for cuisines in row
 ))
-
-# print(all_cuisines)
-
 
 preferred_cuisine=st.multiselect(
     "Preferred Cuisines (Optional)",
