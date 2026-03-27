@@ -155,7 +155,7 @@ if st.button('Find Recommendations', type='primary',use_container_width=True):
                 )
         else:
             if not rating_checker:
-               min_rating=3.0
+               min_rating=0.0
             
             recs=rs.recommendation_by_cuisines(
                 n_recommendations=n_recs,
