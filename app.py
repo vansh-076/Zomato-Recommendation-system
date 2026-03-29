@@ -146,6 +146,8 @@ if st.button('Find Recommendations', type='primary',use_container_width=True):
                     city=city_filter
                 )
             else:
+                if not rating_checker:
+                    min_rating=0.0
                 recs=rs.recommendation_by_cuisines(
                     preferred_restaurant=preferred_restaurant_input,
                     n_recommendations=n_recs,
